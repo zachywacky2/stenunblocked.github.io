@@ -21,14 +21,25 @@ a {
 <body>
 <h1>Sten Unblocked</h1>
 <hr>
-<h1><a href="/slope/">Slope</a></h1>
-  <h1><a href="/paper-io-3d/">Paper.io 3D</a></h1>
-  <h1><a href="/geometrydash/">Geometry Dash</a></h1>
-  <h1><a href="/moto-x3m/">Moto X3M</a></h1>
-  <h1><a href="/moto-x3m-winter/">Moto X3M Winter Edition</a></h1>
-  <h1><a href="/moto-x3m-pool-party/">Moto X3M Pool Party Edition</a></h1>
-  <h1><a href="/drift-hunters/">Drift Hunters</a></h1>
-  <h1><a href="https://stennen.github.io/games/cookies/">Cookie Clicker</a></h1>
-  <h1><a href="https://stennen.github.io/games/2048/">2048</a></h1>
+<div id="container"></div>
+
+<script>
+var games = [
+  ["/paper-io-3d/", "Paper.io 3D"],
+  ["/geometrydash/", "Geometry Dash"],
+  ["/moto-x3m/", "Moto X3M"],
+  ["/moto-x3m-winter/", "Moto X3M Winter Edition"],
+  ["/moto-x3m-pool-party/", "Moto X3M Pool Party Edition"],
+  ["/drift-hunters/", "Drift Hunters"],
+  ["https://stennen.github.io/games/cookies/", "Cookie Clicker"],
+  ["https://stennen.github.io/games/2048/", "2048"]
+];
+var container = document.getElementById("container");
+games.sort(function(a) {return a[1].localeCompare()} );
+for (let i = 0; i < games.length; i++) {
+	let game = games[i];
+    container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a></h1>'; 
+}
+</script>
 </body>
 </html>
