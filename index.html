@@ -58,7 +58,15 @@ var games = [
   ["/short-ride/", "Short Ride"]
 ];
 var container = document.getElementById("container");
-games.sort(function(a) {return a[1].localeCompare()} );
+games.sort(function(a,b) {
+	var gameA = a[1].toLowerCase();
+    var gameB = b[1].toLowerCase();
+    if (gameA < gameB)
+    	return -1;
+    if (gameA > gameB)
+    	return 1;
+	return 0;
+   } );
 for (let i = 0; i < games.length; i++) {
 	let game = games[i];
     container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a></h1>'; 
