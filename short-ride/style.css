@@ -1,10 +1,4 @@
-body {margin: 0; padding: 0}.webgl-content * {border: 0; margin: 0; padding: 0}
-.webgl-content {position: absolute}
-
-
-.webgl-content .spinner {position: absolute; left: 50%; top: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);}
-.webgl-content .spinner {background: url('https://stenunblocked.github.io/slope/style/preparing.png') no-repeat center / contain; width: 141px; height: 22px; margin-top: 110px;}
-
+.webgl-content * {border: 0; margin: 0; padding: 0}
 
 .webgl-content .logo, .progress {position: absolute; left: 50%; top: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);}
 .webgl-content .logo {background: url('https://stenunblocked.github.io/slope/style/progressLogo.Light.png') no-repeat center / contain; width: 154px; height: 130px;}
