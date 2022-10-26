@@ -9,7 +9,7 @@
 
 <url>
   <loc>https://stenunblocked.github.io/</loc>
-  <lastmod>2022-10-21T08:17:31+00:00</lastmod>
+  <lastmod>2022-10-26T09:08:18+0000</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
@@ -42,6 +42,15 @@
   <lastmod>2022-10-21T08:17:31+00:00</lastmod>
   <priority>0.80</priority>
 </url>
-
+<url>
+  <loc>https://stenunblocked.github.io/bottle-flip-3d/</loc>
+  <lastmod>2022-10-26T09:08:18+0000</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://stenunblocked.github.io/wheelie-bike/</loc>
+  <lastmod>2022-10-26T09:08:18+0000</lastmod>
+  <priority>0.80</priority>
+</url>
 
 </urlset>
