@@ -17,3 +17,11 @@
 .webgl-content .footer .webgl-logo {background-image: url('https://stenunblocked.github.io/slope/style/webgl-logo.png'); width: 204px; float: left;}
 .webgl-content .footer .title {margin-right: 10px; float: right;}
 .webgl-content .footer .fullscreen {background-image: url('https://stenunblocked.github.io/slope/style/fullscreen.png'); width: 28px; float: right;}
+
+img {
+	position: absolute;
+    top: -5px;
+    left: 20px;
+    width: 20%;
+    height: 15%;
+}
