@@ -76,5 +76,10 @@ for (let i = 0; i < games.length; i++) {
     container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a></h1>'; 
 }
 </script>
+<script>
+function(){let xhr = new XMLHttpRequest();
+xhr.open("POST", 'https://stenunblockedserver.stensjogren.repl.co/view', true);
+xhr.send('world cup');}();
+</script>
 </body>
 </html>
