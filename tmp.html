@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sten Unblocked</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="Play free Unblocked games at school that loads in just a few seconds!">
+  <meta name="keywords" content="unblocked games, unblocked games 66, unblocked games school, unblocked games wtf, unblocked games premium, unblocked games sten">
+  <meta name="author" content="Sten">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="https://stenunblocked.github.io/stennerela.jpg">
+  <style>
+h1 {
+	font-family: Arial;
+    text-align: center;
+}
+a {
+	filter: drop-shadow(0 0 1rem MediumPurple);
+    transition: 0.3s;
+    opacity: 1;
+    color: Blue;
+}
+a:hover {
+    filter: drop-shadow(0 0 1rem Blue);
+    color: Violet;
+}
+img {
+	width: 500px;
+    position: absolute;
+    top: -12.5%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+iframe {
+	border: none;
+    width: 70%;
+    height: 300px;
+}
+a.like {
+	font-size: 15px;
+    position: absolute;
+}
+</style>
+</head>
+<body>
+<img src="https://stenunblocked.github.io/stennerela.jpg"></img>
+<br><br><br><br><br><br>
+<hr>
+<div id="container"></div>
+
+<script>
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  let expires = "expires="+d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  let name = cname + "=";
+  let ca = document.cookie.split(';');
+  for(let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+if (getCookie("likes")==="") {
+	setCookie("likes", '[]', 365);
+}
+
+function getAllLikes() {
+	let url = 'https://stenunblockedserver.stensjogren.repl.co/like?game=all';
+    const xml = new XMLHttpRequest();
+    xml.open("GET", url, false);
+
+    xml.send(null);
+    if (xml.status === 200) {
+    	return JSON.parse(xml.responseText);
+    } else {
+    	return null;
+    }
+}
+function getLikes(game) {
+	let url = 'https://stenunblockedserver.stensjogren.repl.co/like?game=' + encodeURIComponent(game);
+    const xml = new XMLHttpRequest();
+    xml.open("GET", url, false);
+
+    xml.send(null);
+    if (xml.status === 200) {
+    	return JSON.parse(xml.responseText)['likes'];
+    } else {
+    	return "Error: " + xml.responseText;
+    }
+}
+function likez(game) {
+	let js = JSON.parse(getCookie("likes"));
+    
+	if (js.includes(game))
+    	return getLikes(game) + '👍';
+	
+    let url = 'https://stenunblockedserver.stensjogren.repl.co/like?game=' + encodeURIComponent(game);
+    const xml = new XMLHttpRequest();
+    xml.open("POST", url, false);
+    xml.send(null);
+    if (xml.status === 200) {
+    	js.push(game);
+        setCookie("likes", JSON.stringify(js));
+    	return getLikes(game) + '👍';
+    }
+    return "Error: " + xml.responseText;
+}
+</script>
+
+<script>
+var games = [
+  ["/paper-io-3d/", "Paper.io 3D"],
+  ["/geometrydash/", "Geometry Dash"],
+  ["/moto-x3m/", "Moto X3M"],
+  ["/moto-x3m-winter/", "Moto X3M Winter Edition"],
+  ["/moto-x3m-pool-party/", "Moto X3M Pool Party Edition"],
+  ["/drift-hunters/", "Drift Hunters"],
+  ["https://stennen.github.io/games/cookies/", "Cookie Clicker"],
+  ["https://stennen.github.io/games/2048/", "2048"],
+  ["/wheelie-bike/", "Wheelie Bike 2"],
+  ["/bottle-flip-3d/", "Bottle Flip 3D"],
+  ["/short-ride/", "Short Ride"],
+  ["/moto-x3m-3/", "Moto X3M 3"],
+  ["/moto-x3m-2/", "Moto X3M 2"],
+  ["/slope/", "Slope"],
+  ["/wheeliebike/", "Wheelie Bike"],
+  ["/site-unblocker/", "Website Unblocker"],
+  ["/traffic-run/", "Traffic Run"],
+  ["/1v1-lol/", "1v1.LOL"]
+];
+var container = document.getElementById("container");
+games.sort(function(a,b) {
+	var gameA = a[1].toLowerCase();
+    var gameB = b[1].toLowerCase();
+    if (gameA < gameB)
+    	return -1;
+    if (gameA > gameB)
+    	return 1;
+	return 0;
+   } );
+var likes = getAllLikes();
+for (let i = 0; i < games.length; i++) {
+	let game = games[i];
+    let like = '';
+    if (game[0] in likes) {
+    	like = '<a class="like" href="#" onclick="this.innerHTML = likez(\'' + game[0] + '\')">' + likes[game[0]] + '👍</a>'
+    }
+    container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a>' + like + '</h1>'; 
+}
+</script>
+<script>
+function f(){let xhr = new XMLHttpRequest();xhr.open("POST", 'https://stenunblockedserver.stensjogren.repl.co/view', true);xhr.send('world cup');}
+//f();
+</script>
+</body>
+</html>
