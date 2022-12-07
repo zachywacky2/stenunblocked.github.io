@@ -77,17 +77,21 @@ function getLikes() {
 }
 function like() {
 	let js = JSON.parse(getCookie("likes"));
-	if (js.includes(game))
-    	return getLikes() + " likes";
-	let url = 'https://stenunblockedserver.stensjogren.repl.co/like';
+    
+	if (js.includes(game)) {
+    	likes[game] = getLikes(game);
+    	return likes[game] + ' likes';
+    }
+	
+    let url = 'https://stenunblockedserver.stensjogren.repl.co/like?game=' + encodeURIComponent(game);
     const xml = new XMLHttpRequest();
     xml.open("POST", url, false);
-    xml.setRequestHeader('Content-Type', 'application/json');
-    xml.send(JSON.stringify({'game': game}));
+    xml.send(null);
     if (xml.status === 200) {
     	js.push(game);
         setCookie("likes", JSON.stringify(js));
-    	return getLikes() + " likes";
+        likes[game] = getLikes(game);
+    	return likes[game] + ' likes';
     }
     return "Error: " + xml.responseText;
 }
