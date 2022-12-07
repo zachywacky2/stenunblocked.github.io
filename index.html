@@ -229,6 +229,7 @@ var games = [
   ["/traffic-run/", "Traffic Run"],
   ["/1v1-lol/", "1v1.LOL"]
 ];
+var likes = getAllLikes();
 var games_original = games.slice();
 games_original.reverse();
 function sort_games_alphabet() {
@@ -243,7 +244,6 @@ function sort_games_alphabet() {
             return 1;
         return 0;
        } );
-    var likes = getAllLikes();
     for (let i = 0; i < games.length; i++) {
         let game = games[i];
         let like = '';
@@ -256,7 +256,6 @@ function sort_games_alphabet() {
 function sort_games_time() {
     var container = document.getElementById("container");
     container.innerHTML = '';
-    var likes = getAllLikes();
     for (let i = 0; i < games_original.length; i++) {
         let game = games_original[i];
         let like = '';
@@ -268,7 +267,6 @@ function sort_games_time() {
 }
 function sort_games_likes() {
     var container = document.getElementById("container");
-    var likes = getAllLikes();
     container.innerHTML = '';
     games.sort(function(a,b) {
         var gameA = likes[a[0]];
