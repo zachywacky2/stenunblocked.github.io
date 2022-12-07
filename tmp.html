@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,13 +39,37 @@ a.like {
 	font-size: 15px;
     position: absolute;
 }
+.down-arrow {
+    width: 0;
+    height: 0;
+    border: solid 5px transparent;
+    background: transparent;
+    border-top: solid 7px black;
+    border-bottom-width: 0;
+    margin-top:1px;
+    cursor: pointer;
+    position: absolute;
+    right: 50%;
+    transform: translate(1050%);
+}
 </style>
 </head>
 <body>
 <img src="https://stenunblocked.github.io/stennerela.jpg"></img>
 <br><br><br><br><br><br>
 <hr>
+<div class="down-arrow" onclick="clickDownArrow(this)"></div>
 <div id="container"></div>
+
+<script>
+var is_clicked = false;
+function clickDownArrow(el) {
+	is_clicked = !is_clicked;
+    if (is_clicked) {
+    	el.style.transform = 'translate(1050%) rotate(180deg)';
+    }
+}
+</script>
 
 <script>
 function setCookie(cname, cvalue, exdays) {
@@ -102,8 +125,10 @@ function getLikes(game) {
 function likez(game) {
 	let js = JSON.parse(getCookie("likes"));
     
-	if (js.includes(game))
-    	return getLikes(game) + '👍';
+	if (js.includes(game)) {
+    	likes[game] = getLikes(game);
+    	return likes[game] + '👍';
+    }
 	
     let url = 'https://stenunblockedserver.stensjogren.repl.co/like?game=' + encodeURIComponent(game);
     const xml = new XMLHttpRequest();
@@ -112,7 +137,8 @@ function likez(game) {
     if (xml.status === 200) {
     	js.push(game);
         setCookie("likes", JSON.stringify(js));
-    	return getLikes(game) + '👍';
+        likes[game] = getLikes(game);
+    	return likes[game] + '👍';
     }
     return "Error: " + xml.responseText;
 }
