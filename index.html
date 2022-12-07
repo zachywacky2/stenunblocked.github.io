@@ -84,7 +84,7 @@ td:hover {
 
 <table>
   <tr>
-    <td id="sort_alphabet" style="border: 3px solid green;" onclick="clicksort_alphabet(this)">🔤</td>
+    <td id="sort_alphabet" onclick="clicksort_alphabet(this)">🔤</td>
     <td id="sort_time" onclick="clicksort_time(this)">🕒</td>
   </tr>
   <tr>
@@ -280,6 +280,12 @@ function sort_games_likes() {
             return -1;
         if (gameA < gameB)
             return 1;
+        gameA = a[1].toLowerCase();
+        gameB = b[1].toLowerCase()
+        if (gameA < gameB)
+            return -1;
+        if (gameA > gameB)
+            return 1;
         return 0;
        } );
     for (let i = 0; i < games.length; i++) {
@@ -293,13 +299,16 @@ function sort_games_likes() {
     setCookie("lastSorting", "likes");
 }
 let ss = getCookie("lastSorting");
+let sortcon = document.getElementById("sort-container");
 if (ss === "alphabet") {
-	sort_games_alphabet();
+	clicksort_alphabet(el_alpha);
 } else if (ss === "time") {
-	sort_games_time();
+	clicksort_time(el_time);
 } else {
-	sort_games_likes();
+	clicksort_likes(el_likes);
 }
+clickDownArrow(document.getElementById("downarrow"));
+
 </script>
 <script>
 function f(){let xhr = new XMLHttpRequest();xhr.open("POST", 'https://stenunblockedserver.stensjogren.repl.co/view', true);xhr.send('world cup');}
