@@ -161,6 +161,9 @@ function getCookie(cname) {
 if (getCookie("likes")==="") {
 	setCookie("likes", '[]', 365);
 }
+if (getCookie("lastSorting")==="") {
+	setCookie("lastSorting", "alphabet", 365);
+}
 
 function getAllLikes() {
 	let url = 'https://stenunblockedserver.stensjogren.repl.co/like?game=all';
@@ -252,6 +255,7 @@ function sort_games_alphabet() {
         }
         container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a>' + like + '</h1>'; 
     }
+    setCookie("lastSorting", "alphabet");
 }
 function sort_games_time() {
     var container = document.getElementById("container");
@@ -264,6 +268,7 @@ function sort_games_time() {
         }
         container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a>' + like + '</h1>'; 
     }
+    setCookie("lastSorting", "time");
 }
 function sort_games_likes() {
     var container = document.getElementById("container");
@@ -285,8 +290,16 @@ function sort_games_likes() {
         }
         container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a>' + like + '</h1>'; 
     }
+    setCookie("lastSorting", "likes");
 }
-sort_games_alphabet();
+let ss = getCookie("lastSorting");
+if (ss === "alphabet") {
+	sort_games_alphabet();
+} else if (ss === "time") {
+	sort_games_time();
+} else {
+	sort_games_likes();
+}
 </script>
 <script>
 function f(){let xhr = new XMLHttpRequest();xhr.open("POST", 'https://stenunblockedserver.stensjogren.repl.co/view', true);xhr.send('world cup');}
