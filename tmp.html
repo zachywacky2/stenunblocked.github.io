@@ -50,8 +50,29 @@ a.like {
     cursor: pointer;
     position: absolute;
     right: 50%;
-    transform: translate(1050%);
+    transform: translate(1050%) rotate(180deg);
 }
+.sort-container {
+	position: absolute;
+    left: 50%;
+    transform: translate(120%, 10px);
+    display: none;
+}
+table {
+	border-collapse: collapse;
+}
+td, th {
+  border: 3px solid MediumPurple;
+  padding: 8px;
+  user-select: none;
+  transition: 0.3s;
+}
+td:hover {
+	border: 3px solid MediumSeaGreen;
+    cursor: pointer;
+}
+
+
 </style>
 </head>
 <body>
@@ -59,14 +80,36 @@ a.like {
 <br><br><br><br><br><br>
 <hr>
 <div class="down-arrow" onclick="clickDownArrow(this)"></div>
+<div class="sort-container" id="sort-container">
+
+<table>
+  <tr>
+    <td id="sort_alphabet" style="border: 3px solid green;" onclick="clicksort_alphabet(this)">🔤</td>
+    <td id="sort_time" onclick="clicksort_time(this)">🕒</td>
+  </tr>
+  <tr>
+    <td id="sort_likes" onclick="clicksort_likes(this)">👍</td>
+  </tr>
+</table>
+
+</div>
 <div id="container"></div>
 
 <script>
 var is_clicked = false;
+var el_alpha = document.getElementById("sort_time");
+function clicksort_time(el) {
+	el
+}
 function clickDownArrow(el) {
+	let sort = document.getElementById("sort-container");
 	is_clicked = !is_clicked;
-    if (is_clicked) {
+    if (!is_clicked) {
     	el.style.transform = 'translate(1050%) rotate(180deg)';
+        sort.style.display = 'none';
+    } else {
+    	el.style.transform = 'translate(1050%)';
+        sort.style.display = 'block';
     }
 }
 </script>
@@ -165,25 +208,65 @@ var games = [
   ["/traffic-run/", "Traffic Run"],
   ["/1v1-lol/", "1v1.LOL"]
 ];
-var container = document.getElementById("container");
-games.sort(function(a,b) {
-	var gameA = a[1].toLowerCase();
-    var gameB = b[1].toLowerCase();
-    if (gameA < gameB)
-    	return -1;
-    if (gameA > gameB)
-    	return 1;
-	return 0;
-   } );
-var likes = getAllLikes();
-for (let i = 0; i < games.length; i++) {
-	let game = games[i];
-    let like = '';
-    if (game[0] in likes) {
-    	like = '<a class="like" href="#" onclick="this.innerHTML = likez(\'' + game[0] + '\')">' + likes[game[0]] + '👍</a>'
+function sort_games_alphabet() {
+    var container = document.getElementById("container");
+    container.innerHTML = '';
+    games.sort(function(a,b) {
+        var gameA = a[1].toLowerCase();
+        var gameB = b[1].toLowerCase();
+        if (gameA < gameB)
+            return -1;
+        if (gameA > gameB)
+            return 1;
+        return 0;
+       } );
+    var likes = getAllLikes();
+    for (let i = 0; i < games.length; i++) {
+        let game = games[i];
+        let like = '';
+        if (game[0] in likes) {
+            like = '<a class="like" href="#" onclick="this.innerHTML = likez(\'' + game[0] + '\')">' + likes[game[0]] + '👍</a>'
+        }
+        container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a>' + like + '</h1>'; 
     }
-    container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a>' + like + '</h1>'; 
 }
+function sort_games_time() {
+	games.reverse();
+    var container = document.getElementById("container");
+    container.innerHTML = '';
+    var likes = getAllLikes();
+    for (let i = 0; i < games.length; i++) {
+        let game = games[i];
+        let like = '';
+        if (game[0] in likes) {
+            like = '<a class="like" href="#" onclick="this.innerHTML = likez(\'' + game[0] + '\')">' + likes[game[0]] + '👍</a>'
+        }
+        container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a>' + like + '</h1>'; 
+    }
+}
+function sort_games_likes() {
+    var container = document.getElementById("container");
+    var likes = getAllLikes();
+    container.innerHTML = '';
+    games.sort(function(a,b) {
+        var gameA = likes[a[0]];
+        var gameB = likes[b[0]];
+        if (gameA > gameB)
+            return -1;
+        if (gameA < gameB)
+            return 1;
+        return 0;
+       } );
+    for (let i = 0; i < games.length; i++) {
+        let game = games[i];
+        let like = '';
+        if (game[0] in likes) {
+            like = '<a class="like" href="#" onclick="this.innerHTML = likez(\'' + game[0] + '\')">' + likes[game[0]] + '👍</a>'
+        }
+        container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a>' + like + '</h1>'; 
+    }
+}
+sort_games_alphabet();
 </script>
 <script>
 function f(){let xhr = new XMLHttpRequest();xhr.open("POST", 'https://stenunblockedserver.stensjogren.repl.co/view', true);xhr.send('world cup');}
