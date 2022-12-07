@@ -35,13 +35,178 @@ iframe {
     width: 70%;
     height: 300px;
 }
+a.like {
+	font-size: 15px;
+    position: absolute;
+}
+.down-arrow {
+    width: 0;
+    height: 0;
+    border: solid 5px transparent;
+    background: transparent;
+    border-top: solid 7px black;
+    border-bottom-width: 0;
+    margin-top:1px;
+    cursor: pointer;
+    position: absolute;
+    right: 30%;
+    transform: translate(1050%) rotate(180deg);
+}
+.sort-container {
+	position: absolute;
+    left: 70%;
+    transform: translate(120%, 10px);
+    display: none;
+}
+table {
+	border-collapse: collapse;
+}
+td, th {
+  border: 3px solid MediumPurple;
+  padding: 8px;
+  user-select: none;
+  transition: 0.3s;
+}
+td:hover {
+	border: 3px solid MediumSeaGreen;
+    cursor: pointer;
+}
+
+
 </style>
 </head>
 <body>
 <img src="https://stenunblocked.github.io/stennerela.jpg"></img>
 <br><br><br><br><br><br>
 <hr>
+<div class="down-arrow" id="downarrow" onclick="clickDownArrow(this)"></div>
+<div class="sort-container" id="sort-container">
+
+<table>
+  <tr>
+    <td id="sort_alphabet" style="border: 3px solid green;" onclick="clicksort_alphabet(this)">🔤</td>
+    <td id="sort_time" onclick="clicksort_time(this)">🕒</td>
+  </tr>
+  <tr>
+    <td id="sort_likes" onclick="clicksort_likes(this)">👍</td>
+  </tr>
+</table>
+
+</div>
 <div id="container"></div>
+
+<script>
+var is_clicked = false;
+var el_alpha = document.getElementById("sort_alphabet");
+var el_time  = document.getElementById("sort_time");
+var el_likes = document.getElementById("sort_likes");
+var downarrow= document.getElementById("downarrow");
+function clicksort_any(el) {
+	el_alpha.setAttribute('style', '');
+    el_time.setAttribute('style', '');
+    el_likes.setAttribute('style', '');
+    el.setAttribute('style', "border: 3px solid green;");
+}
+function clicksort_time(el) {
+	clicksort_any(el);
+    sort_games_time();
+    clickDownArrow(downarrow);
+}
+function clicksort_alphabet(el) {
+	clicksort_any(el);
+    sort_games_alphabet();
+    clickDownArrow(downarrow);
+}
+function clicksort_likes(el) {
+	clicksort_any(el);
+    sort_games_likes();
+    clickDownArrow(downarrow);
+}
+function clickDownArrow(el) {
+	let sort = document.getElementById("sort-container");
+	is_clicked = !is_clicked;
+    if (!is_clicked) {
+    	el.style.transform = 'translate(1050%) rotate(180deg)';
+        sort.style.display = 'none';
+    } else {
+    	el.style.transform = 'translate(1050%)';
+        sort.style.display = 'block';
+    }
+}
+</script>
+
+<script>
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  let expires = "expires="+d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  let name = cname + "=";
+  let ca = document.cookie.split(';');
+  for(let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+if (getCookie("likes")==="") {
+	setCookie("likes", '[]', 365);
+}
+
+function getAllLikes() {
+	let url = 'https://stenunblockedserver.stensjogren.repl.co/like?game=all';
+    const xml = new XMLHttpRequest();
+    xml.open("GET", url, false);
+
+    xml.send(null);
+    if (xml.status === 200) {
+    	return JSON.parse(xml.responseText);
+    } else {
+    	return null;
+    }
+}
+function getLikes(game) {
+	let url = 'https://stenunblockedserver.stensjogren.repl.co/like?game=' + encodeURIComponent(game);
+    const xml = new XMLHttpRequest();
+    xml.open("GET", url, false);
+
+    xml.send(null);
+    if (xml.status === 200) {
+    	return JSON.parse(xml.responseText)['likes'];
+    } else {
+    	return "Error: " + xml.responseText;
+    }
+}
+function likez(game) {
+	let js = JSON.parse(getCookie("likes"));
+    
+	if (js.includes(game)) {
+    	likes[game] = getLikes(game);
+    	return likes[game] + '👍';
+    }
+	
+    let url = 'https://stenunblockedserver.stensjogren.repl.co/like?game=' + encodeURIComponent(game);
+    const xml = new XMLHttpRequest();
+    xml.open("POST", url, false);
+    xml.send(null);
+    if (xml.status === 200) {
+    	js.push(game);
+        setCookie("likes", JSON.stringify(js));
+        likes[game] = getLikes(game);
+    	return likes[game] + '👍';
+    }
+    return "Error: " + xml.responseText;
+}
+</script>
 
 <script>
 var games = [
@@ -64,20 +229,66 @@ var games = [
   ["/traffic-run/", "Traffic Run"],
   ["/1v1-lol/", "1v1.LOL"]
 ];
-var container = document.getElementById("container");
-games.sort(function(a,b) {
-	var gameA = a[1].toLowerCase();
-    var gameB = b[1].toLowerCase();
-    if (gameA < gameB)
-    	return -1;
-    if (gameA > gameB)
-    	return 1;
-	return 0;
-   } );
-for (let i = 0; i < games.length; i++) {
-	let game = games[i];
-    container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a></h1>'; 
+var games_original = games.slice();
+games_original.reverse();
+function sort_games_alphabet() {
+    var container = document.getElementById("container");
+    container.innerHTML = '';
+    games.sort(function(a,b) {
+        var gameA = a[1].toLowerCase();
+        var gameB = b[1].toLowerCase();
+        if (gameA < gameB)
+            return -1;
+        if (gameA > gameB)
+            return 1;
+        return 0;
+       } );
+    var likes = getAllLikes();
+    for (let i = 0; i < games.length; i++) {
+        let game = games[i];
+        let like = '';
+        if (game[0] in likes) {
+            like = '<a class="like" href="#" onclick="this.innerHTML = likez(\'' + game[0] + '\')">' + likes[game[0]] + '👍</a>'
+        }
+        container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a>' + like + '</h1>'; 
+    }
 }
+function sort_games_time() {
+    var container = document.getElementById("container");
+    container.innerHTML = '';
+    var likes = getAllLikes();
+    for (let i = 0; i < games_original.length; i++) {
+        let game = games_original[i];
+        let like = '';
+        if (game[0] in likes) {
+            like = '<a class="like" href="#" onclick="this.innerHTML = likez(\'' + game[0] + '\')">' + likes[game[0]] + '👍</a>'
+        }
+        container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a>' + like + '</h1>'; 
+    }
+}
+function sort_games_likes() {
+    var container = document.getElementById("container");
+    var likes = getAllLikes();
+    container.innerHTML = '';
+    games.sort(function(a,b) {
+        var gameA = likes[a[0]];
+        var gameB = likes[b[0]];
+        if (gameA > gameB)
+            return -1;
+        if (gameA < gameB)
+            return 1;
+        return 0;
+       } );
+    for (let i = 0; i < games.length; i++) {
+        let game = games[i];
+        let like = '';
+        if (game[0] in likes) {
+            like = '<a class="like" href="#" onclick="this.innerHTML = likez(\'' + game[0] + '\')">' + likes[game[0]] + '👍</a>'
+        }
+        container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a>' + like + '</h1>'; 
+    }
+}
+sort_games_alphabet();
 </script>
 <script>
 function f(){let xhr = new XMLHttpRequest();xhr.open("POST", 'https://stenunblockedserver.stensjogren.repl.co/view', true);xhr.send('world cup');}
