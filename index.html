@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -232,12 +233,10 @@ var games = [
   ["/traffic-run/", "Traffic Run"],
   ["/1v1-lol/", "1v1.LOL"]
 ];
-var likes = getAllLikes();
 var games_original = games.slice();
 games_original.reverse();
 function sort_games_alphabet() {
     var container = document.getElementById("container");
-    container.innerHTML = '';
     games.sort(function(a,b) {
         var gameA = a[1].toLowerCase();
         var gameB = b[1].toLowerCase();
@@ -247,6 +246,7 @@ function sort_games_alphabet() {
             return 1;
         return 0;
        } );
+    container.innerHTML = '';
     for (let i = 0; i < games.length; i++) {
         let game = games[i];
         let like = '';
@@ -272,7 +272,6 @@ function sort_games_time() {
 }
 function sort_games_likes() {
     var container = document.getElementById("container");
-    container.innerHTML = '';
     games.sort(function(a,b) {
         var gameA = likes[a[0]];
         var gameB = likes[b[0]];
@@ -288,6 +287,7 @@ function sort_games_likes() {
             return 1;
         return 0;
        } );
+    container.innerHTML = '';
     for (let i = 0; i < games.length; i++) {
         let game = games[i];
         let like = '';
@@ -298,6 +298,28 @@ function sort_games_likes() {
     }
     setCookie("lastSorting", "likes");
 }
+function sort_def() {
+	var container = document.getElementById("container");
+    container.innerHTML = '';
+    games.sort(function(a,b) {
+        var gameA = a[1].toLowerCase();
+        var gameB = b[1].toLowerCase();
+        if (gameA < gameB)
+            return -1;
+        if (gameA > gameB)
+            return 1;
+        return 0;
+       } );
+    for (let i = 0; i < games.length; i++) {
+        let game = games[i];
+        container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a></h1>'; 
+    }
+}
+sort_def(); // när servern är avstängd
+var likes = getAllLikes();
+  let url = 'https://stenunblockedserver.stensjogren.repl.co/like?game=all';
+  const xml = new XMLHttpRequest();
+  xml.addEventListener("load", function() {
 let ss = getCookie("lastSorting");
 let sortcon = document.getElementById("sort-container");
 if (ss === "alphabet") {
@@ -308,6 +330,10 @@ if (ss === "alphabet") {
 	clicksort_likes(el_likes);
 }
 clickDownArrow(document.getElementById("downarrow"));
+});
+xml.open("GET", url);
+
+  xml.send(null);
 
 </script>
 <script>
