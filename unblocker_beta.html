@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<div id="container">
+
+</div>
+
+<script>
+var token = null;
+var container = document.getElementById("container");
+function CreateProxy() {
+	const xml = new XMLHttpRequest();
+    xml.open("POST", 'https://proxyapi.stensjogren.repl.co/proxy/new', false);
+    xml.send(null, false);
+    token = JSON.parse(xml.responseText)['token'];
+}
+CreateProxy();
+
+function SendProxyRequest(url, method) {
+	const xml = new XMLHttpRequest();
+    xml.open("POST", 'https://proxyapi.stensjogren.repl.co/proxy/request?method=' + method + '&id=' + token, false);
+    let payload = {'URL': url};
+    xml.send(JSON.stringify(payload), false);
+    return JSON.parse(xml.responseText);
+}
+
+document.write(token);
+let url = 'https://discord.com';
+let req = SendProxyRequest(url, 'GET');
+if (req['status'] != 200)
+	container.innerHTML = "Request failed!";
+else
+	container.innerHTML = req['text'];
+let els = container.getElementsByTagName("*");
+for (let i = 0; i < els.length; i++) {
+	let el = els[i];
+    if (el.hasAttribute("href") || el.hasAttribute("src")) {
+    	let tg = 'src';
+        if (el.hasAttribute('href'))
+        	tg = 'href';
+    	let link = el.getAttribute(tg);
+        if (!link.startsWith('http')) {
+        	link = url + link;
+        } else {
+        	// TODO
+        }
+        link = 'https://ProxyAPI.stensjogren.repl.co/proxy/asset?id=' + token + '&method=GET&URL=' + encodeURIComponent(link);
+        el.setAttribute(tg, link);
+    }
+}
+</script>
+
+</body>
+</html>
