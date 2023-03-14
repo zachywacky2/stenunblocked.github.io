@@ -1,0 +1,101 @@
+<html>
+<head
+    <link rel="icon" href="https://stenunblocked.github.io/stennerela.jpg">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Slope - Sten Unblocked</title>
+    <link rel="stylesheet" href="https://stenunblocked.github.io/slope/style/style.css">
+    <script src="UnityProgress.js"></script>
+    <script src="UnityLoader.js"></script>
+    <!-- -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!-- -->
+    <script>
+      var gameInstance = UnityLoader.instantiate("gameContainer", "tm.json", {onProgress: UnityProgress,Module:{onRuntimeInitialized: function() {UnityProgress(gameInstance, "complete")}}});
+    </script>
+</head>
+<body>
+    <div class="webgl-content">
+        <div id="gameContainer" style="width: 100%; height: 95%; margin: auto;"></div>
+        <div class="footer">
+            <div class="webgl-logo"></div>
+            <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
+            <div class="title">Traffic Mania Unblocked</div>
+        </div>
+    </div>
+		<script>
+       if (typeof getAdinDomain !== 'undefined') {
+           const bodyTag = document.getElementsByTagName('body')[0];
+
+           let addAdinPreroll = document.createElement('script');
+            addAdinPreroll.src = getAdinDomain;
+            bodyTag.appendChild(addAdinPreroll);
+        }
+  </script>
+<a href="https://stenunblocked.github.io/"><div class="title">Sten Unblocked</div></a>
+<a id="likes" href="#" onclick="this.innerHTML=like()">Loading likes...</p>
+
+<script>
+var game = "/traffic-mania/";
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  let expires = "expires="+d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  let name = cname + "=";
+  let ca = document.cookie.split(';');
+  for(let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+if (getCookie("likes")==="") {
+	setCookie("likes", '[]', 365);
+}
+
+function getLikes() {
+	let url = 'https://stenunblockedserver.stensjogren.repl.co/like?game=' + encodeURIComponent(game);
+    const xml = new XMLHttpRequest();
+    xml.open("GET", url, false);
+
+    xml.send(null);
+    if (xml.status === 200) {
+    	return JSON.parse(xml.responseText)['likes'];
+    } else {
+    	return "Error: " + xml.responseText;
+    }
+}
+function like() {
+	let js = JSON.parse(getCookie("likes"));
+    
+	if (js.includes(game)) {
+    	likes[game] = getLikes(game);
+    	return likes[game] + ' likes';
+    }
+	
+    let url = 'https://stenunblockedserver.stensjogren.repl.co/like?game=' + encodeURIComponent(game);
+    const xml = new XMLHttpRequest();
+    xml.open("POST", url, false);
+    xml.send(null);
+    if (xml.status === 200) {
+    	js.push(game);
+        setCookie("likes", JSON.stringify(js));
+        likes[game] = getLikes(game);
+    	return likes[game] + ' likes';
+    }
+    return "Error: " + xml.responseText;
+}
+document.getElementById("likes").innerHTML = getLikes() + " likes";
+</script>
+</body>
+</html>
