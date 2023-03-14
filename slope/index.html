@@ -1,5 +1,6 @@
+<!DOCTYPE html>
 <html>
-<head
+<head>
     <link rel="icon" href="https://stenunblocked.github.io/stennerela.jpg">
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -13,6 +14,12 @@
     <script>
       var gameInstance = UnityLoader.instantiate("gameContainer", "slope_new.json", {onProgress: UnityProgress,Module:{onRuntimeInitialized: function() {UnityProgress(gameInstance, "complete")}}});
     </script>
+    <style>
+    h3 {
+    	font-size: 20px;
+        font-family: Arial;
+    }
+    </style>
 </head>
 <body>
     <div class="webgl-content">
@@ -32,8 +39,8 @@
             bodyTag.appendChild(addAdinPreroll);
         }
   </script>
-<a href="https://stenunblocked.github.io/"><div class="title">Sten Unblocked</div></a>
-<a id="likes" href="#" onclick="this.innerHTML=like()">Loading likes...</p>
+<h3><a href="https://stenunblocked.github.io/">Sten Unblocked</a></h3>
+<h3><a id="likes" href="#" onclick="this.innerHTML=like()">Loading likes...</a></h3>
 
 <script>
 var game = "/slope/";
