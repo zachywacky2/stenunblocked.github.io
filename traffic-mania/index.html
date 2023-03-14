@@ -1,18 +1,25 @@
+<!DOCTYPE html>
 <html>
-<head
+<head>
     <link rel="icon" href="https://stenunblocked.github.io/stennerela.jpg">
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Slope - Sten Unblocked</title>
+    <title>Traffic Mania - Sten Unblocked</title>
     <link rel="stylesheet" href="https://stenunblocked.github.io/slope/style/style.css">
-    <script src="UnityProgress.js"></script>
-    <script src="UnityLoader.js"></script>
+    <script src="https://stenunblocked.github.io/slope/UnityProgress.js"></script>
+    <script src="https://stenunblocked.github.io/slope/UnityLoader.js"></script>
     <!-- -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <!-- -->
     <script>
       var gameInstance = UnityLoader.instantiate("gameContainer", "tm.json", {onProgress: UnityProgress,Module:{onRuntimeInitialized: function() {UnityProgress(gameInstance, "complete")}}});
     </script>
+    <style>
+    h3 {
+    	font-size: 20px;
+        font-family: Arial;
+    }
+    </style>
 </head>
 <body>
     <div class="webgl-content">
@@ -32,8 +39,8 @@
             bodyTag.appendChild(addAdinPreroll);
         }
   </script>
-<a href="https://stenunblocked.github.io/"><div class="title">Sten Unblocked</div></a>
-<a id="likes" href="#" onclick="this.innerHTML=like()">Loading likes...</p>
+<h3><a href="https://stenunblocked.github.io/">Sten Unblocked</a></h3>
+<h3><a id="likes" href="#" onclick="this.innerHTML=like()">Loading likes...</a></h3>
 
 <script>
 var game = "/traffic-mania/";
