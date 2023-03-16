@@ -88,41 +88,29 @@
             };
 
 
-            if(false /*!(window.location != window.parent.location && window.location.host === "totaljerkface.com" && window.parent.location.host === "totaljerkface.com")*/) {
-                report_loading_issue();
-            } else {
-                // Set variables
-                if(!isNaN(get_url_parameter("replay_id"))) {
-                    window["HW_SETTINGS"]["replay_id"] = get_url_parameter("replay_id");
-                }
-                if(!isNaN(get_url_parameter("level_id"))) {
-                    window["HW_SETTINGS"]["level_id"] = get_url_parameter("level_id");
-                }
 
-                try {
-                    get_latest_hw_version().then(function(latest) {
-                        window.HW_VERSION = latest;
+        // Set variables
+        if(!isNaN(get_url_parameter("replay_id"))) {
+            window["HW_SETTINGS"]["replay_id"] = get_url_parameter("replay_id");
+        }
+        if(!isNaN(get_url_parameter("level_id"))) {
+            window["HW_SETTINGS"]["level_id"] = get_url_parameter("level_id");
+        }
+                window.HW_VERSION = {"index":"377d8ee688f611f85f42934459e0cf04","dependencies":"7d6e5018ab97813976df9b7e3518abd2"};
 
-                        var d_el = document.createElement("script");
-                        d_el.src = "./js/dependencies." + latest["dependencies"] + ".js";
-                        d_el.onload = function() {
-                            var i_el = document.createElement("script");
-                            i_el.src = "./js/index." + latest["index"] + ".js";
-                            i_el.onload = function() {
-                                document.getElementById("loading-indicator").remove();
-                            }
-
-                            document.body.appendChild(i_el);
-                        }
-                        document.body.appendChild(d_el);
-                    })
-                    .catch(function(error) {
-                        setTimeout(window.location.reload.bind(window.location), 500);
-                    });
-                } catch(e) {
-                    setTimeout(window.location.reload.bind(window.location), 500);
-                }
+        var d_el = document.createElement("script");
+        d_el.src = "/js/dependencies.7d6e5018ab97813976df9b7e3518abd2.js";
+        d_el.onload = function() {
+            var i_el = document.createElement("script");
+            i_el.src = "/js/index.377d8ee688f611f85f42934459e0cf04.js";
+            i_el.onload = function() {
+                document.getElementById("loading-indicator").remove();
             }
+
+            document.body.appendChild(i_el);
+        }
+        document.body.appendChild(d_el);
+
         })();
     </script>
 <div id="og-game-holder">
