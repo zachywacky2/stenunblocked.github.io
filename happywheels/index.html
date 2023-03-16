@@ -61,7 +61,7 @@
             }
 
             function get_latest_hw_version() {
-                return fetch("/happy-wheels-js/version.json?r=" + Math.random())
+                return fetch("https://stenunblocked.github.io/happywheels/happy-wheels-js/version.json")
                 .then(function(response) { return response.json(); })
                 .catch(function(error) {
                     throw error;
