@@ -1,22 +1,108 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Drift Hunters - Sten Unblocked</title>
-	<link rel="icon" href="https://stenunblocked.github.io/stennerela.jpg">
-<style>
-html, body {
-	width: 100%;
-    height: 100%;
-    padding: 0;
-   	margin: 0;
-}
-iframe {
-	border: none;
-    width: 100%;
-    height: 100%;
-}
-</style>
+    <link rel="icon" href="https://stenunblocked.github.io/stennerela.jpg">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Drift Hunters - Sten Unblocked</title>
+    <link rel="stylesheet" href="https://stenunblocked.github.io/slope/style/style.css">
+    <script src="https://stenunblocked.github.io/slope/UnityProgress.js"></script>
+    <script src="https://stenunblocked.github.io/slope/UnityLoader.js"></script>
+    <!-- -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!-- -->
+    <script>
+      var gameInstance = UnityLoader.instantiate("gameContainer", "game.json", {onProgress: UnityProgress,Module:{onRuntimeInitialized: function() {UnityProgress(gameInstance, "complete")}}});
+    </script>
+    <style>
+    h3 {
+    	font-size: 20px;
+        font-family: Arial;
+    }
+    </style>
 </head>
-<iframe src="https://mj89sp3sau2k7lj1eg3k40hkeppguj6j-a-sites-opensocial.googleusercontent.com/gadgets/ifr?url=http://www.gstatic.com/sites-gadgets/iframe/iframe.xml&container=enterprise&view=default&lang=en&country=ALL&sanitize=0&v=332031fabec97c83&libs=core&mid=42&parent=https://sites.google.com/site/unblockedgames66ez/drift-hunters#up_scroll=no&up_iframeURL=https://debbiewatermanphd.com/editor/uploads/5/5/6/7/5567194/custom_themes/136734914403232081/drift_hunter.html&st=e%3DAIHE3cDCY1Wuvpb6owkWZjpmObSOcihzncYzLNL4wS%252F38tTspCAjHZYRAh5H7B9dj4Aq83B7FQ%252FITUu%252F1Aq8R2Gzg%252BRwRLtQx0Z3wxGeX6TRiqMPzpyCZwqK5%252FAuihi7WkvwmHp8QJpR%26c%3Denterprise&rpctoken=1372660742980715183">
+<body>
+    <div class="webgl-content">
+        <div id="gameContainer" style="width: 100%; height: 95%; margin: auto;"></div>
+        <div class="footer">
+            <div class="webgl-logo"></div>
+            <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
+            <div class="title">Drift Hunters Unblocked</div>
+        </div>
+    </div>
+		<script>
+       if (typeof getAdinDomain !== 'undefined') {
+           const bodyTag = document.getElementsByTagName('body')[0];
+
+           let addAdinPreroll = document.createElement('script');
+            addAdinPreroll.src = getAdinDomain;
+            bodyTag.appendChild(addAdinPreroll);
+        }
+  </script>
+<h3><a href="https://stenunblocked.github.io/">Sten Unblocked</a></h3>
+<h3><a id="likes" href="#" onclick="this.innerHTML=like()">Loading likes...</a></h3>
+
+<script>
+var game = "/drift-hunters/";
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  let expires = "expires="+d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  let name = cname + "=";
+  let ca = document.cookie.split(';');
+  for(let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+if (getCookie("likes")==="") {
+	setCookie("likes", '[]', 365);
+}
+
+function getLikes() {
+	let url = 'https://stenunblockedserver.stensjogren.repl.co/like?game=' + encodeURIComponent(game);
+    const xml = new XMLHttpRequest();
+    xml.open("GET", url, false);
+
+    xml.send(null);
+    if (xml.status === 200) {
+    	return JSON.parse(xml.responseText)['likes'];
+    } else {
+    	return "Error: " + xml.responseText;
+    }
+}
+function like() {
+	let js = JSON.parse(getCookie("likes"));
+    
+	if (js.includes(game)) {
+    	likes[game] = getLikes(game);
+    	return likes[game] + ' likes';
+    }
+	
+    let url = 'https://stenunblockedserver.stensjogren.repl.co/like?game=' + encodeURIComponent(game);
+    const xml = new XMLHttpRequest();
+    xml.open("POST", url, false);
+    xml.send(null);
+    if (xml.status === 200) {
+    	js.push(game);
+        setCookie("likes", JSON.stringify(js));
+        likes[game] = getLikes(game);
+    	return likes[game] + ' likes';
+    }
+    return "Error: " + xml.responseText;
+}
+document.getElementById("likes").innerHTML = getLikes() + " likes";
+</script>
 </body>
 </html>
