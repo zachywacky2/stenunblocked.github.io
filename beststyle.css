@@ -1,0 +1,214 @@
+:root {
+  --Blurple: #5865f2;
+  --Green: MediumSeaGreen;
+  --Red: Crimson;
+  --Purple: MediumPurple;
+  --Blue: DeepSkyBlue;
+}
+
+body {
+  margin: 2rem;
+  background: #222;
+  font-family: Comfortaa;
+}
+
+button {
+  font-size: 2rem;
+  border: none;
+  background-color: var(--Blurple);
+  color: white;
+  display: block;
+  border-radius: 5px;
+  padding: 14px 72px;
+  text-align: center;
+  font-family: Comfortaa;
+  transition: 0.3s;
+}
+
+button.green {
+  background-color: var(--Green);
+}
+button.red {
+  background-color: var(--Red);
+}
+button.purple {
+  background-color: var(--Purple);
+}
+button.blue {
+  background-color: var(--Blue);
+}
+
+button:hover {
+  box-shadow: inset 0 0 0 10em rgba(255, 255, 255, 0.2);
+}
+button:active {
+  box-shadow: inset 0 0 0 10em rgba(0, 0, 0, 0.15);
+}
+
+h1,h2,h3,h4,h5,h6 {
+  color: white;
+  transform: scale(1.5);
+}
+h1.red,h2.red,h3.red,h4.red,h5.red,h6.red {
+  color: var(--Red);
+}
+h1.green,h2.green,h3.green,h4.green,h5.green,h6.green {
+  color: var(--Green);
+}
+h1.blue,h2.blue,h3.blue,h4.blue,h5.blue,h6.blue {
+  color: var(--Blue);
+}
+h1.blurple,h2.blurple,h3.blurple,h4.blurple,h5.blurple,h6.blurple {
+  color: var(--Blurple);
+}
+
+p,span {
+  color: white;
+  transform: scale(1.5);
+}
+p.red,span.red { color: var(--Red); }
+p.green,span.green { color: var(--Green); }
+p.blue,span.blue { color: var(--Blue); }
+p.purple,span.purple { color: var(--Purple); }
+p.blurple,span.blurple { color: var(--Blurple); }
+
+a {
+  color: var(--Blue);
+  transition: 0.3s;
+}
+a.white {color: white;}
+a.red {color: var(--Red);}
+a.green {color: var(--Green);}
+a.purple {color: var(--Purple);}
+a.blurple {color: var(--Blurple);}
+a:hover {
+  opacity: 0.7;
+}
+a:active {
+  opacity: 0.5;
+}
+
+/* Unnecessary */
+div.button-container {
+  position: absolute;
+  left: 50%;
+  transform: translate(-40%);
+}
+pre {
+  transform: scale(1.5);
+  color: white;
+}
+pre.blue { color: var(--Blue); }
+pre.red { color: var(--Red); }
+pre.green { color: var(--Green); }
+pre.purple { color: var(--Purple); }
+pre.blurple { color: var(--Blurple); }
+
+abbdr {
+  color: white;
+  transform: scale(1.5);
+}
+
+address {
+  color: white;
+  transform: scale(1.5);
+}
+
+table, th, td {
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 5px 5px;
+  color: white;
+}
+table {
+  transform: scale(2) translate(0, 20%);
+}
+code {
+  color: white;
+  font-size: 200%;
+}
+summary {
+  transform: scale(3);
+  color: white;
+}
+hr {
+  margin: 30px -28px 28px;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+dialog {
+  color: white;
+  background: black;
+  border-radius: 5px;
+  transform: scale(2) translate(0, 20%);
+}
+
+label,legend {
+  color: white;
+}
+fieldset {
+  border-radius: 5px;
+}
+textarea, input {
+  font-family: Comfortaa;
+  border: 1px solid white;
+  border-radius: 5px;
+  transition: 0.3s ease;
+}
+input:hover,textarea:hover {
+  border: 1px solid grey;
+}
+input:focus,textarea:focus {
+  outline: 1px solid var(--Blue);
+}
+input[type=submit],input[type=button] {
+  font-size: 1rem;
+  border: none;
+  background-color: var(--Blue);
+  color: white;
+  display: block;
+  border-radius: 5px;
+  padding: 14px 72px;
+  text-align: center;
+  font-family: Comfortaa;
+  transition: 0.3s;
+}
+input[type=radio]:focus,input[type=submit]:focus,input[type=button]:focus {
+  outline: none;
+}
+input[type=submit]:hover,input[type=button]:hover {
+  box-shadow: inset 0 0 0 10em rgba(255, 255, 255, 0.2);
+}
+input[type=submit]:active,input[type=button]:active {
+  box-shadow: inset 0 0 0 10em rgba(0, 0, 0, 0.15);
+}
+input[type=radio] {
+  position: absolute;
+  left: calc(50% - 50px);
+  appearance: none;
+  border: 1px solid #666;
+  border-radius: 50%;
+  
+  background: linear-gradient(0deg, rgba(120,120,120,1) 0%, rgba(255,255,255,1) 100%);
+  width: 15px;
+  height: 15px;
+}
+input[type=radio] + label {
+  position: absolute;
+  left: 50%;
+  transform: translate(-25px, 14%);
+  transition: 0.2s;
+}
+
+input[type=radio]:hover {
+  opacity: 0.8;
+}
+input[type=radio]:hover + label {
+  opacity: 0.8;
+}
+
+input[type=radio]:checked {
+  border: 1px solid var(--Blue);
+  background: linear-gradient(0deg, rgba(120,120,120,1) 0%, rgba(255,255,255,1) 100%);
+}
