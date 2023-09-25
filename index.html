@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -106,6 +107,7 @@ td:hover {
 <div id="container"></div>
 
 <script>
+var likes;
 var is_clicked = false;
 var el_alpha = document.getElementById("sort_alphabet");
 var el_time  = document.getElementById("sort_time");
@@ -175,49 +177,67 @@ if (getCookie("lastSorting")==="") {
 	setCookie("lastSorting", "alphabet", 365);
 }
 
-function getAllLikes() {
+function getAllLikes(cb) {
 	let url = 'https://stenunblockedserver.stensjogren.repl.co/like?game=all';
     const xml = new XMLHttpRequest();
-    xml.open("GET", url, false);
+    xml.open("GET", url, true);
 
     xml.send(null);
+    xml.addEventListener("load", function() {
+    
     if (xml.status === 200) {
-    	return JSON.parse(xml.responseText);
+    	cb(JSON.parse(xml.responseText));
     } else {
-    	return null;
-    }
+    	cb(null);
+    }});
 }
-function getLikes(game) {
+function getLikes(game, cb) {
 	let url = 'https://stenunblockedserver.stensjogren.repl.co/like?game=' + encodeURIComponent(game);
     const xml = new XMLHttpRequest();
-    xml.open("GET", url, false);
+    xml.open("GET", url, true);
 
     xml.send(null);
+    xml.addEventListener("load", function() {
     if (xml.status === 200) {
-    	return JSON.parse(xml.responseText)['likes'];
+    	cb( JSON.parse(xml.responseText)['likes'] );
     } else {
-    	return "Error: " + xml.responseText;
+    	cb( "Error: " + xml.responseText );
     }
+    });
 }
-function likez(game) {
+function likez(game, cb) {
 	let js = JSON.parse(getCookie("likes"));
     
 	if (js.includes(game)) {
-    	likes[game] = getLikes(game);
-    	return likes[game] + '👍';
+    	getLikes(game, function(lika) {
+        	likes[game] = lika;
+    		cb(likes[game] + '👍');
+        });
+        return;
     }
 	
     let url = 'https://stenunblockedserver.stensjogren.repl.co/like?game=' + encodeURIComponent(game);
     const xml = new XMLHttpRequest();
-    xml.open("POST", url, false);
+    xml.open("POST", url, true);
     xml.send(null);
+    xml.addEventListener("load", function() {
     if (xml.status === 200) {
     	js.push(game);
         setCookie("likes", JSON.stringify(js));
-        likes[game] = getLikes(game);
-    	return likes[game] + '👍';
+        getLikes(game, function(likess) {
+        	likes[game] = likess;
+    		cb( likes[game] + '👍' );
+        });
+        return;
     }
-    return "Error: " + xml.responseText;
+    cb( "Error: " + xml.responseText );
+    });
+}
+
+function likezElement(game, element) {
+	likez(game, function(lstr) {
+    	element.innerText = lstr;
+    });
 }
 </script>
 
@@ -271,7 +291,7 @@ function sort_games_alphabet() {
         let game = games[i];
         let like = '';
         if (game[0] in likes) {
-            like = '<a class="like" href="#" onclick="this.innerHTML = likez(\'' + game[0] + '\')">' + likes[game[0]] + '👍</a>'
+            like = '<a class="like" href="#" onclick="likezElement(\'' + game[0] + '\', this)">' + likes[game[0]] + '👍</a>'
         }
         container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a>' + like + '</h1>'; 
     }
@@ -284,7 +304,7 @@ function sort_games_time() {
         let game = games_original[i];
         let like = '';
         if (game[0] in likes) {
-            like = '<a class="like" href="#" onclick="this.innerHTML = likez(\'' + game[0] + '\')">' + likes[game[0]] + '👍</a>'
+            like = '<a class="like" href="#" onclick="likezElement(\'' + game[0] + '\', this)">' + likes[game[0]] + '👍</a>'
         }
         container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a>' + like + '</h1>'; 
     }
@@ -312,7 +332,7 @@ function sort_games_likes() {
         let game = games[i];
         let like = '';
         if (game[0] in likes) {
-            like = '<a class="like" href="#" onclick="this.innerHTML = likez(\'' + game[0] + '\')">' + likes[game[0]] + '👍</a>'
+            like = '<a class="like" href="#" onclick="this.innerHTML = likezElement(\'' + game[0] + '\', this)">' + likes[game[0]] + '👍</a>'
         }
         container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a>' + like + '</h1>'; 
     }
@@ -336,10 +356,9 @@ function sort_def() {
     }
 }
 sort_def(); // när servern är avstängd
-var likes = getAllLikes();
+var likes = getAllLikes(function(_likes) {
   let url = 'https://stenunblockedserver.stensjogren.repl.co/like?game=all';
-  const xml = new XMLHttpRequest();
-  xml.addEventListener("load", function() {
+  likes = _likes;
 let ss = getCookie("lastSorting");
 let sortcon = document.getElementById("sort-container");
 if (ss === "alphabet") {
@@ -351,13 +370,10 @@ if (ss === "alphabet") {
 }
 clickDownArrow(document.getElementById("downarrow"));
 });
-xml.open("GET", url);
-
-  xml.send(null);
 
 </script>
 <script>
-function f(){let xhr = new XMLHttpRequest();xhr.open("POST", 'https://stenunblockedserver.stensjogren.repl.co/view', true);xhr.send('world cup');}
+function f(){let xhr = new XMLHttpRequest();xhr.open("POST", 'https://stenunblockedserver.stensjogren.repl.co/view', true);xhr.send(null);}
 f();
 </script>
 </body>
