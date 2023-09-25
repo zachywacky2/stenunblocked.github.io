@@ -107,7 +107,7 @@ div.cookieContainer {
 </head>
 <body>
 
-<div class="cookieAskBg" id="cookieContainer"><div class="cookieContainer">
+<div class="cookieAskBg" id="cookieContainer" style="display:none"><div class="cookieContainer">
     <center><h1><a href="#" style="text-decoration:none;font-size: 50x;" onclick="acceptCookies()">
     🍪✅
     <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#" style="text-decoration:none;font-size: 50x;" onclick="denyCookies()">🍪❌</a></span></a></h1></center>
@@ -422,13 +422,15 @@ if (enabled == "1") {
 
     gtag('config', 'G-MY0THGFRYS');
 }
-if (enabled == "0") {
+else if (enabled == "0") {
 	cookieElement.outerHTML = "";
+} else {
+	cookieElement.style.display = '';
 }
 </script>
 <script>
 function f(){let xhr = new XMLHttpRequest();xhr.open("POST", 'https://stenunblockedserver.stensjogren.repl.co/view', true);xhr.send('world cup');}
-//f();
+f();
 </script>
 </body>
 </html>
