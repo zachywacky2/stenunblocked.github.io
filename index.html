@@ -5,13 +5,6 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3054952862534774" crossorigin="anonymous"></script>
 <!-- Google tag (gtag.js) -->
 <script async src="ganalytics.js"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-MY0THGFRYS');
-</script>
 <title>Sten Unblocked</title>
   <meta charset="UTF-8">
   <meta name="description" content="Play free Unblocked games at school that loads in just a few seconds!">
@@ -83,10 +76,43 @@ td:hover {
     cursor: pointer;
 }
 
+html,body {
+	padding: 0;
+    margin: 0;
+}
+
+div.cookieAskCntr {
+	width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 100;
+    float: left;
+}
+
+div.cookieAskBg {
+	bottom: 0;
+    position: fixed;
+    z-index: 10;
+    background-color: white;
+    border: 2px solid gray;
+    height: 100px;
+    width: calc(100% - 4px);
+}
+
+div.cookieContainer {
+	transform: translateY(25%);
+}
 
 </style>
 </head>
 <body>
+
+<div class="cookieAskBg" id="cookieContainer"><div class="cookieContainer">
+    <center><h1><a href="#" style="text-decoration:none;font-size: 50x;" onclick="acceptCookies()">
+    🍪✅
+    <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#" style="text-decoration:none;font-size: 50x;" onclick="denyCookies()">🍪❌</a></span></a></h1></center>
+</div></div>
+
 <img src="https://stenunblocked.github.io/stennerela.jpg"></img>
 <br><br><br><br><br><br>
 <hr>
@@ -371,10 +397,38 @@ if (ss === "alphabet") {
 clickDownArrow(document.getElementById("downarrow"));
 });
 
+var cookieElement = document.getElementById("cookieContainer");
+function acceptCookies() {
+	cookieElement.outerHTML = ""; 
+    setCookie("enabledCookie", "1");
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-MY0THGFRYS');
+}
+
+function denyCookies() {
+	cookieElement.outerHTML = "";
+    setCookie("enabledCookie", "0");
+}
+
+var enabled = getCookie("enabledCookie");
+if (enabled == "1") {
+	cookieElement.outerHTML = ""; 
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-MY0THGFRYS');
+}
+if (enabled == "0") {
+	cookieElement.outerHTML = "";
+}
 </script>
 <script>
-function f(){let xhr = new XMLHttpRequest();xhr.open("POST", 'https://stenunblockedserver.stensjogren.repl.co/view', true);xhr.send(null);}
-f();
+function f(){let xhr = new XMLHttpRequest();xhr.open("POST", 'https://stenunblockedserver.stensjogren.repl.co/view', true);xhr.send('world cup');}
+//f();
 </script>
 </body>
 </html>
