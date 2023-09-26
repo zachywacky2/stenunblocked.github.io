@@ -1,4 +1,4 @@
-const likeElement = document.getElementById("like");
+const likeElement = document.getElementById("likes");
 
 function setCookie(cname, cvalue, exdays) {
   const d = new Date();
