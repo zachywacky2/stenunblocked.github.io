@@ -49,7 +49,7 @@
         }
   </script>
 <h3><a href="https://stenunblocked.github.io/">Sten Unblocked</a></h3>
-<h3><a id="likes" href="#" onclick="this.innerHTML=like()">Loading likes...</a></h3>
+<h3><a id="likes" href="#" onclick="like()">Loading likes...</a></h3>
 
 <script>
 var game = "/traffic-mania/";
@@ -79,39 +79,49 @@ if (getCookie("likes")==="") {
 	setCookie("likes", '[]', 365);
 }
 
-function getLikes() {
+function getLikes(cb) {
 	let url = 'https://stenunblockedserver.stensjogren.repl.co/like?game=' + encodeURIComponent(game);
     const xml = new XMLHttpRequest();
-    xml.open("GET", url, false);
-
+    xml.open("GET", url, true);
     xml.send(null);
+    xml.onload=function() {
     if (xml.status === 200) {
-    	return JSON.parse(xml.responseText)['likes'];
+    	cb( JSON.parse(xml.responseText)['likes'] );
     } else {
-    	return "Error: " + xml.responseText;
+    	cb( "Error: " + xml.responseText );
     }
+    };
 }
 function like() {
+	const el = document.getElementById("likes");
 	let js = JSON.parse(getCookie("likes"));
     
 	if (js.includes(game)) {
-    	likes[game] = getLikes(game);
-    	return likes[game] + ' likes';
+    	getLikes(function(res){
+        likes[game] = res;
+    	el.innerText = likes[game] + ' likes';
+        });
+        return;
     }
 	
     let url = 'https://stenunblockedserver.stensjogren.repl.co/like?game=' + encodeURIComponent(game);
     const xml = new XMLHttpRequest();
-    xml.open("POST", url, false);
+    xml.open("POST", url, true);
     xml.send(null);
+    xml.onload = function(){
     if (xml.status === 200) {
     	js.push(game);
         setCookie("likes", JSON.stringify(js));
-        likes[game] = getLikes(game);
-    	return likes[game] + ' likes';
+        getLikes( function(res){
+        likes[game]=res;
+    	el.innerText = likes[game] + ' likes';
+        });
+        return;
     }
-    return "Error: " + xml.responseText;
+    cb( "Error: " + xml.responseText);
+    };
 }
-document.getElementById("likes").innerHTML = getLikes() + " likes";
+getLikes(function(lk) {document.getElementById("likes").innerHTML = lk + " likes"});
 </script>
 </body>
 </html>
