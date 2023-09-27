@@ -96,6 +96,6 @@ if (likeElement != null)
   }
 
   let xml = new XMLHttpRequest();
-  xml.open('GET', 'https://stenunblockedaktieapi--geometrysten.repl.co/view-game' + gameURL, true);
+  xml.open('POST', 'https://stenunblockedaktieapi--geometrysten.repl.co/view-game' + gameURL, true);
   xml.send(null);
 })();
