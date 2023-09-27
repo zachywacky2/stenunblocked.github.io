@@ -86,3 +86,16 @@ if (likeElement != null)
   getLikes(function(likeCount) {
     likeElement.innerText = likeCount + " likes";
   });
+
+(function(){
+  var gameURL = 'hmm';
+  try {
+    gameURL = '?game=' encodeURIComponent(game);
+  } catch {
+    gameURL = '';
+  }
+
+  let xml = new XMLHttpRequest();
+  xml.open('GET', 'https://stenunblockedaktieapi--geometrysten.repl.co/view-game' + gameURL, true);
+  xml.send(null);
+})();

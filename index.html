@@ -432,8 +432,11 @@ else if (enabled == "0") {
 }
 </script>
 <script>
-function f(){let xhr = new XMLHttpRequest();xhr.open("POST", 'https://stenunblockedserver.stensjogren.repl.co/view', true);xhr.send(null);}
-f();
+(function(){
+  let xml = new XMLHttpRequest();
+  xml.open('GET', 'https://stenunblockedaktieapi--geometrysten.repl.co/view-game', true);
+  xml.send(null);
+})();
 </script>
 </body>
 </html>
