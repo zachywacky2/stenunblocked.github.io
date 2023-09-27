@@ -90,7 +90,7 @@ if (likeElement != null)
 (function(){
   var gameURL = 'hmm';
   try {
-    gameURL = '?game=' encodeURIComponent(game);
+    gameURL = '?game=' + encodeURIComponent(game);
   } catch {
     gameURL = '';
   }
