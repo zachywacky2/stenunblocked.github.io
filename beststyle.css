@@ -111,10 +111,11 @@ h1.blurple,h2.blurple,h3.blurple,h4.blurple,h5.blurple,h6.blurple {
   color: var(--Blurple);
 }
 
-p,span {
+p,span,li {
   color: white;
-  transform: scale(1.5);
+  font-size: 20px;
 }
+
 p.red,span.red { color: var(--Red); }
 p.green,span.green { color: var(--Green); }
 p.blue,span.blue { color: var(--Blue); }

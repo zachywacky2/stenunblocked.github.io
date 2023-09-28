@@ -11,7 +11,7 @@
   <meta name="keywords" content="unblocked games, unblocked games 66, unblocked games school, unblocked games wtf, unblocked games premium, unblocked games sten">
   <meta name="author" content="Sten">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="https://stenunblocked.github.io/stennerela.jpg">
+<link rel="icon" href="stennerela.jpg">
   <style>
 h1 {
 	font-family: Arial;
@@ -95,7 +95,7 @@ div.cookieAskBg {
     z-index: 10;
     background-color: white;
     border: 2px solid gray;
-    height: 100px;
+    height: 150px;
     width: calc(100% - 4px);
 }
 
@@ -110,10 +110,11 @@ div.cookieContainer {
 <div class="cookieAskBg" id="cookieContainer" style="display:none"><div class="cookieContainer">
     <center><h1><a href="#" style="text-decoration:none;font-size: 50x;" onclick="acceptCookies()">
     🍪✅
-    <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#" style="text-decoration:none;font-size: 50x;" onclick="denyCookies()">🍪❌</a></span></a></h1></center>
+    <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#" style="text-decoration:none;font-size: 50x;" onclick="denyCookies()">🍪❌</a></span></a></h1>
+    <h3 style="font-family:Arial;"><a href="/privacy-policy/">Privacy Policy</a></h3></center>
 </div></div>
 
-<img src="https://stenunblocked.github.io/stennerela.jpg"></img>
+<img src="stennerela.jpg"></img>
 <br><br><br><br><br><br>
 <hr>
 <div class="down-arrow" id="downarrow" onclick="clickDownArrow(this)"></div>
@@ -361,7 +362,7 @@ function sort_games_likes() {
         let game = games[i];
         let like = '';
         if (game[0] in likes) {
-            like = '<a class="like" href="#" onclick="this.innerHTML = likezElement(\'' + game[0] + '\', this)">' + likes[game[0]] + '👍</a>'
+            like = '<a class="like" href="#" onclick="likezElement(\'' + game[0] + '\', this)">' + likes[game[0]] + '👍</a>'
         }
         container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a>' + like + '</h1>'; 
     }
