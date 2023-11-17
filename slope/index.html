@@ -17,12 +17,6 @@
     <script>
       var gameInstance = UnityLoader.instantiate("gameContainer", "slope_new.json", {onProgress: UnityProgress,Module:{onRuntimeInitialized: function() {UnityProgress(gameInstance, "complete")}}});
     </script>
-    <style>
-    h3 {
-    	font-size: 20px;
-        font-family: Arial;
-    }
-    </style>
 </head>
 <body>
     <div class="webgl-content">
@@ -42,8 +36,8 @@
             bodyTag.appendChild(addAdinPreroll);
         }
   </script>
-<h3><a href="../index.html">Sten Unblocked</a></h3>
-<h3><a id="likes" href="#" onclick="like()">Loading likes...</a></h3>
+<h3 style="font-size:20px;font-family:Arial;"><a href="../index.html">Sten Unblocked</a></h3>
+<h3 style="font-size:20px;font-family:Arial;"><a id="likes" href="#" onclick="like()">Loading likes...</a></h3>
 
 <script>
 var game = "/slope/";
