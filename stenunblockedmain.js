@@ -99,3 +99,66 @@ if (likeElement != null)
   xml.open('POST', 'https://stenunblockedaktieapi--geometrysten.repl.co/view-game' + gameURL, true);
   xml.send(null);
 })();
+
+function sleep(milliseconds) {
+  return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
+
+var _hueMode = getCookie("hueMode") == "1";
+async function hueModeLoop() {
+  while (_hueMode) {
+    let as = document.getElementsByTagName("a");
+    let speed = 1;
+    for (let r = 0; r < 360; r+=speed) {
+      for (let i = 0; i < as.length; i++) {
+        as[i].style.filter = 'hue-rotate(' + r + 'deg)';
+        as[i].style.color = 'red';
+      }
+      await sleep(1);
+    }
+  }
+}
+
+async function hueify(el) {
+  let speed = 1;
+  while (!_hueMode) {
+    for (let r = 0; r < 360; r+=speed) {
+      el.style.filter = 'hue-rotate(' + r + 'deg)';
+      el.style.color = 'red';
+      await sleep(1);
+    }
+  }
+}
+
+function clearHues() {
+  let as = document.getElementsByTagName("a");
+  for (let i = 0; i < as.length; i++) {
+    as[i].style.filter = '';
+    as[i].style.color = '';
+  }
+}
+
+function toggleHueMode() {
+  if (_hueMode) {
+    _hueMode = false;
+    setCookie("hueMode", "");
+    hueify(hueModeTxt);
+    clearHues();
+  } else {
+    _hueMode = true;
+    setCookie("hueMode", "1");
+    hueModeLoop();
+  }
+}
+
+var hueModeTxt = document.getElementById("hueModeTxt");
+
+if (hueModeTxt) {
+  hueify(hueModeTxt);
+  hueModeTxt.addEventListener("onclick", function(e) {
+    toggleHueMode();
+  })
+}
+
+if (_hueMode)
+  hueModeLoop();
