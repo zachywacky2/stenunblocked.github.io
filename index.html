@@ -311,6 +311,23 @@ var games = [
 ];
 var games_original = games.slice();
 games_original.reverse();
+
+function normalize_game_url(gm) {
+    if (gm.startsWith("/")) {
+        gm = "." + gm;
+
+        if (!gm.endsWith("index.html")) {
+            if (!gm.endsWith("/"))
+                gm = gm + "/";
+            gm = gm + "index.html";
+        }
+
+        return gm;
+    }
+
+    return gm;
+}
+
 function sort_games_alphabet() {
     var container = document.getElementById("container");
     games.sort(function(a,b) {
@@ -329,7 +346,7 @@ function sort_games_alphabet() {
         if (game[0] in likes) {
             like = '<a class="like" href="#" onclick="likezElement(\'' + game[0] + '\', this)">' + likes[game[0]] + '👍</a>'
         }
-        container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a>' + like + '</h1>'; 
+        container.innerHTML += '\n<h1><a href="' + normalize_game_url(game[0]) + '">' + game[1] + '</a>' + like + '</h1>'; 
     }
     setCookie("lastSorting", "alphabet");
 }
@@ -342,7 +359,7 @@ function sort_games_time() {
         if (game[0] in likes) {
             like = '<a class="like" href="#" onclick="likezElement(\'' + game[0] + '\', this)">' + likes[game[0]] + '👍</a>'
         }
-        container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a>' + like + '</h1>'; 
+        container.innerHTML += '\n<h1><a href="' + normalize_game_url(game[0]) + '">' + game[1] + '</a>' + like + '</h1>'; 
     }
     setCookie("lastSorting", "time");
 }
@@ -370,7 +387,7 @@ function sort_games_likes() {
         if (game[0] in likes) {
             like = '<a class="like" href="#" onclick="likezElement(\'' + game[0] + '\', this)">' + likes[game[0]] + '👍</a>'
         }
-        container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a>' + like + '</h1>'; 
+        container.innerHTML += '\n<h1><a href="' + normalize_game_url(game[0]) + '">' + game[1] + '</a>' + like + '</h1>'; 
     }
     setCookie("lastSorting", "likes");
 }
@@ -388,7 +405,7 @@ function sort_def() {
        } );
     for (let i = 0; i < games.length; i++) {
         let game = games[i];
-        container.innerHTML += '\n<h1><a href="' + game[0] + '">' + game[1] + '</a></h1>'; 
+        container.innerHTML += '\n<h1><a href="' + normalize_game_url(game[0]) + '">' + game[1] + '</a></h1>'; 
     }
 }
 sort_def(); // när servern är avstängd
