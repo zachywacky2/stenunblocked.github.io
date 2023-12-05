@@ -316,11 +316,13 @@ function normalize_game_url(gm) {
     if (gm.startsWith("/")) {
         gm = "." + gm;
 
-        if (!gm.endsWith("index.html")) {
-            if (!gm.endsWith("/"))
-                gm = gm + "/";
-            gm = gm + "index.html";
-        }
+	if (!gm.endsWith(".html")) {
+	        if (!gm.endsWith("index.html")) {
+	            if (!gm.endsWith("/"))
+	                gm = gm + "/";
+	            gm = gm + "index.html";
+	        }
+	}
 
         return gm;
     }
