@@ -6,7 +6,7 @@
   <title>Fireboy & Watergirl - Sten Unblocked</title>
 	<link rel="icon" href="../stennerela.jpg">
 	  <meta charset="UTF-8">
-	<meta rel="description">Play the classic co-op adventure Fireboy and Watergirl in the Forest Temple online at Sten Unblocked. Work together with a friend to get through each maze.</meta>
+	<meta name="description" content="Play the classic co-op adventure Fireboy and Watergirl in the Forest Temple online at Sten Unblocked. Work together with a friend to get through each maze.">
 	  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3798877607103818" crossorigin="anonymous"></script>
   <meta name="author" content="Sten">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -76,52 +76,11 @@ h3{
 <div>
 <h3 style="font-size:20px;font-family:Arial;"><a href="../index.html">Sten Unblocked</a></h3>
 <h3 style="font-size:20px;font-family:Arial;"><a id="likes" href="#" onclick="like()">Loading likes...</a></h3></div>
-<p style="font-family: Arial;">&nbsp;Press <b>F11</b> to enter <a href="#" onclick="openFullscreen()">fullscreen</a>.</p>
 <script>
 var game = "/fireboy-and-watergirl/";
 </script>
 <script src="../stenunblockedmain.js"></script>
-<script>
-function openFullscreen() {
-    if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen();
-    } else if (document.documentElement.webkitRequestFullscreen) {
-        document.documentElement.webkitRequestFullscreen();
-    } else if (document.documentElement.msRequestFullscreen) {
-        document.documentElement.msRequestFullscreen();
-    }
-}
-
-(function(){
-    var _fullscreen = false;
-    var _frame = document.getElementById("frame");
-    document.onkeydown=function(event) {
-        if (_fullscreen && (event.keyCode === 27 || event.keyCode === 122)) {
-            _fullscreen = false;
-            _frame.setAttribute("class", "");
-            setTimeout(() => document.exitFullscreen(), 1000);
-        } else if (!_fullscreen && event.keyCode === 122) {
-            _fullscreen = true;
-            _frame.setAttribute("class", "fullScreen");
-        }
-    }
-
-    window.onresize = function(e) {
-        if (!(!window.screenTop && !window.screenY)) {
-            if (!_fullscreen) {
-                _fullscreen = true;
-                _frame.setAttribute("class", "fullScreen");
-            }
-        } else if (_fullscreen) {
-            _fullscreen = false;
-            _frame.setAttribute("class", "");
-        }
-    }
-
-    window.onresize(null);
-
-    _frame.contentWindow.document.addEventListener("keydown", document.onkeydown);
-})();
+<script src="../fullscreen.js">
 </script>
 </body>
 </html>
