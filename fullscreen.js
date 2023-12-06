@@ -1,16 +1,55 @@
 var _fullscreen = false;
 var _frame = document.getElementById("frame");
 
+var scrollKeys = {37: 1, 38: 1, 39: 1, 40: 1};
+
+function preventDefault(e) {
+  e.preventDefault();
+}
+
+function preventDefaultForScrollKeys(e) {
+  if (scrollKeys[e.keyCode]) {
+    preventDefault(e);
+    return false;
+  }
+}
+
+var supportsPassive = false;
+try {
+  window.addEventListener("test", null, Object.defineProperty({}, 'passive', {
+    get: function () { supportsPassive = true; } 
+  }));
+} catch(e) {}
+
+var wheelOpt = supportsPassive ? { passive: false } : false;
+var wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
+
+function disableScroll() {
+  window.addEventListener('DOMMouseScroll', preventDefault, false);
+  window.addEventListener(wheelEvent, preventDefault, wheelOpt);
+  window.addEventListener('touchmove', preventDefault, wheelOpt);
+  window.addEventListener('keydown', preventDefaultForScrollKeys, false);
+}
+
+function enableScroll() {
+  window.removeEventListener('DOMMouseScroll', preventDefault, false);
+  window.removeEventListener(wheelEvent, preventDefault, wheelOpt); 
+  window.removeEventListener('touchmove', preventDefault, wheelOpt);
+  window.removeEventListener('keydown', preventDefaultForScrollKeys, false);
+}
+
 function enableFullscreen() {
     document.body.style.overflow = "hidden";
     _fullscreen = true;
     _frame.setAttribute("class", "fullScreen");
+    disableScroll();
 }
 
 function disableFullscreen() {
     document.body.style.overflow = "";
     _fullscreen = false;
     _frame.setAttribute("class", "");
+    enableScroll();
 }
 
 function openFullscreen() {
