@@ -123,7 +123,7 @@ div.cookieContainer {
     <h3 style="font-family:Arial;"><a href="/privacy-policy/">Privacy Policy</a></h3></center>
 </div></div>
 
-<img src="https://5.imimg.com/data5/SELLER/Default/2022/11/MM/ZO/TA/154638865/4-2-christmas-hat-png-hd-500x500.png" class="chrismanhat"></img>
+<img src="https://5.imimg.com/data5/SELLER/Default/2022/11/MM/ZO/TA/154638865/4-2-christmas-hat-png-hd-500x500.png" class="chrismanhat" id="chrismanhat" style="display:none"></img>
 <img src="stennerela.jpg"></img>
 <br><br><br><br><br><br>
 <hr>
@@ -489,5 +489,11 @@ else if (enabled == "0") {
 </center>
 -->
 <br>
+<script>
+var chrismashat = document.getElementById("chrismanhat");
+var allowed = ["stenblocked2", "stenblocked", "stenunblocked"];
+if (allowed.includes(window.location.host.split(".")[0].toLowerCase()))
+	chrismashat.style.display = '';
+</script>
 </body>
 </html>
